@@ -4,19 +4,17 @@ import { Column } from './components/Column'
 import { Card } from './components/Card'
 import { AppContainer } from './styles'
 import { AddNewItem } from './components/AddNewItem'
+import { useAppState } from './AppStateContext'
 
 const App = () => {
+  const { state } = useAppState()
+
   return (
     <AppContainer>
-      <Column text='To do'>
-        <Card text='Generate App scaffold' />
-      </Column>
-      <Column text='In Progess'>
-        <Card text='Microsoft Teams' />
-      </Column>
-      <Column text='Done'>
-        <Card text='Present worth future worth but I am worthless' />
-      </Column>
+      {state.lists.map((list, i) => (
+        <Column text={list.text} key={list.id} index={i} />
+      ))}
+
       <AddNewItem
         toggleButtonText='+Add another list'
         onAdd={console.log}
